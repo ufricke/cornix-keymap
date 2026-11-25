@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cornix – keymap reference</title>
+<style>
+  :root { --u: 46px; --k: 40px; }
+  * { box-sizing: border-box; }
+  body { font-family: Inter, -apple-system, "Helvetica Neue", sans-serif; color: #1c1c1e; margin: 32px 44px; background: #fff; }
+  h1 { font-size: 24px; margin: 0 0 6px; }
+  .sub { color: #555; font-size: 13px; margin-bottom: 20px; }
+  .grid { display: grid; grid-template-columns: repeat(2, max-content); grid-template-rows: repeat(3, auto); grid-auto-flow: column; gap: 16px 24px; }
+  .panel { border: 1px solid #ddd; border-radius: 10px; padding: 14px 22px 18px; }
+  .panel h2 { font-size: 15px; margin: 0 0 10px; display: flex; align-items: center; gap: 8px; }
+  .panel h2 small { font-weight: 400; color: #666; font-size: 12px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .board { position: relative; width: calc(var(--u) * 13.8); height: calc(var(--u) * 4.95); }
+  .key { position: absolute; width: var(--k); height: var(--k); border: 1px solid #c7c7cc; border-radius: 6px;
+         background: #fff; box-shadow: 0 1px 0 #d1d1d6; display: flex; flex-direction: column; align-items: center;
+         justify-content: center; text-align: center; font-size: 11px; line-height: 1.1; padding: 1px; }
+  .key.big { font-size: 15px; font-weight: 600; }
+  .key .top { font-size: 8px; color: #888; }
+  .key.small { font-size: 8.5px; }
+  .key.trns { border-style: dashed; box-shadow: none; color: #999; }
+  .key.none { background: #f0f0f2; border-color: #e5e5ea; box-shadow: none; }
+  .key.held { background: #2c2c2e; border-color: #2c2c2e; color: #fff; font-weight: 600; }
+  .key.raw { color: #c00; font-size: 7px; }
+  .key.knob { width: calc(var(--k) * 1.1); height: calc(var(--k) * 1.1); border: 3px dotted #8e8e93; border-radius: 50%; box-shadow: none; }
+  .key.knob .top { font-size: 7px; }
+  .turn { position: absolute; width: calc(var(--u) * 1.6); text-align: center; font-size: 9px; line-height: 1.25; color: #333; white-space: nowrap; }
+  .turn.trns { color: #999; }
+  .notes { font-size: 12px; line-height: 1.45; width: calc(var(--u) * 13.8 + 44px); }
+  .notes ul { margin: 0; padding-left: 18px; }
+  .about { margin-top: 20px; font-size: 11px; color: #666; }
+  @page { size: A4 landscape; margin: 8mm; }
+  @media print { .grid { grid-template-columns: 1fr 1fr; margin-right: 2px; } .board { margin: 0 auto; } .notes { width: auto; }
+                 body { margin: 0; zoom: 0.68; -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+</style>
+</head>
+<body>
+<h1>Cornix – keymap reference</h1>
+<div class="sub">macOS · input source U.S./ABC · dark key = thumb key you hold for that layer · dashed = same as Base · grey = no function</div>
+<div class="grid" id="grid"></div>
+<div class="about"><b>Created</b> with AI assistance, 25 November 2026 · <b>Source</b> <code>keyboard layout v5.vil</code> (Vial / vial.rocks) · <b>Review status</b> not yet reviewed</div>
+
+<script>
+const VIL = {"version": 1, "uid": 16882930253541522617, "layout": [[["KC_TAB", "KC_Q", "KC_W", "KC_E", "KC_R", "KC_T", -1], ["KC_BSPACE", "KC_A", "KC_S", "KC_D", "KC_F", "KC_G", -1], ["KC_LSHIFT", "KC_Z", "KC_X", "KC_C", "KC_V", "KC_B", "KC_MUTE"], ["KC_LCTRL", "KC_LGUI", "KC_LALT", "MO(4)", "MO(3)", "KC_SPACE", -1], ["KC_DELETE", "KC_P", "KC_O", "KC_I", "KC_U", "KC_Y", -1], ["KC_ENTER", "KC_QUOTE", "KC_L", "KC_K", "KC_J", "KC_H", "LGUI(KC_SPACE)"], ["KC_SLASH", "KC_UP", "KC_DOT", "KC_COMMA", "KC_M", "KC_N", -1], ["KC_RIGHT", "KC_DOWN", "KC_LEFT", "MO(2)", "MO(1)", "KC_RSHIFT", -1]], [["KC_ESCAPE", "LSFT(KC_2)", "LSFT(KC_3)", "LSFT(KC_4)", "LSFT(KC_5)", "LSFT(KC_6)", -1], ["KC_TRNS", "LSFT(KC_1)", "LSFT(KC_SLASH)", "LSFT(KC_9)", "LSFT(KC_0)", "KC_MINUS", -1], ["KC_TRNS", "LSFT(KC_GRAVE)", "LSFT(KC_MINUS)", "KC_LBRACKET", "KC_RBRACKET", "LSFT(KC_EQUAL)", "KC_MUTE"], ["KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_NO", "LGUI(KC_SPACE)", -1], ["KC_DELETE", "KC_BSLASH", "LSFT(KC_BSLASH)", "LSA(KC_2)", "LSFT(KC_8)", "LSFT(KC_7)", -1], ["KC_NO", "KC_GRAVE", "LSFT(KC_QUOTE)", "KC_SCOLON", "LSFT(KC_SCOLON)", "KC_SLASH", "KC_TRNS"], ["LGUI(KC_RIGHT)", "LALT(KC_UP)", "LGUI(KC_LEFT)", "KC_EQUAL", "LSFT(KC_RBRACKET)", "LSFT(KC_LBRACKET)", -1], ["LALT(KC_RIGHT)", "LALT(KC_DOWN)", "LALT(KC_LEFT)", "KC_NO", "KC_NO", "KC_TRNS", -1]], [["KC_F12", "KC_F1", "KC_F2", "KC_F3", "KC_F4", "KC_F5", -1], ["USER00", "KC_MPRV", "KC_MPLY", "KC_MNXT", "KC_NO", "KC_NO", -1], ["USER01", "KC_NO", "KC_BRID", "KC_BRIU", "KC_NO", "KC_NO", "KC_MUTE"], ["USER02", "KC_TRNS", "KC_TRNS", "KC_NO", "KC_NO", "KC_TRNS", -1], ["KC_F11", "KC_F10", "KC_F9", "KC_F8", "KC_F7", "KC_F6", -1], ["LCA(KC_ENTER)", "LCTL(KC_UP)", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_TRNS"], ["LCTL(KC_RIGHT)", "LCA(KC_UP)", "LCTL(KC_LEFT)", "KC_NO", "KC_NO", "KC_NO", -1], ["LCA(KC_RIGHT)", "LCA(KC_DOWN)", "LCA(KC_LEFT)", "KC_NO", "KC_NO", "KC_TRNS", -1]], [["KC_ESCAPE", "KC_GRAVE", "KC_7", "KC_8", "KC_9", "KC_MINUS", -1], ["KC_TRNS", "KC_0", "KC_4", "KC_5", "KC_6", "KC_DOT", -1], ["KC_TRNS", "LSFT(KC_SCOLON)", "KC_1", "KC_2", "KC_3", "KC_COMMA", "KC_MUTE"], ["KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_NO", "KC_NO", "KC_TRNS", -1], ["KC_NO", "KC_NO", "KC_NO", "LSA(KC_2)", "LSFT(KC_5)", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_SLASH", "LSFT(KC_8)", "LSFT(KC_EQUAL)", "KC_NO", "KC_TRNS"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_EQUAL", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_TRNS", -1]], [["KC_NO", "KC_NO", "LSA(KC_W)", "LALT(KC_LBRACKET)", "LSA(KC_LBRACKET)", "KC_NO", -1], ["KC_TRNS", "M0", "LALT(KC_S)", "LALT(KC_MINUS)", "LSA(KC_MINUS)", "LSA(KC_8)", -1], ["KC_TRNS", "M3", "KC_NO", "LALT(KC_RBRACKET)", "LSA(KC_RBRACKET)", "KC_NO", "KC_MUTE"], ["KC_TRNS", "KC_TRNS", "SGUI(KC_4)", "KC_NO", "KC_NO", "KC_TRNS", -1], ["KC_NO", "LALT(KC_6)", "M1", "KC_NO", "M2", "KC_NO", -1], ["KC_NO", "KC_NO", "M4", "KC_NO", "M5", "KC_NO", "KC_TRNS"], ["KC_NO", "KC_NO", "LALT(KC_SCOLON)", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_TRNS", -1]], [["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_MUTE"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_BTN3"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1]], [["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_MUTE"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_BTN3"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1]], [["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_MUTE"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_BTN3"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1]], [["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_MUTE"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_BTN3"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1]], [["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_MUTE"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_BTN3"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", -1]]], "encoder_layout": [[["KC_VOLD", "KC_VOLU"], ["LGUI(KC_MINUS)", "LGUI(KC_EQUAL)"]], [["KC_VOLD", "KC_VOLU"], ["KC_TRNS", "KC_TRNS"]], [["KC_VOLD", "KC_VOLU"], ["KC_TRNS", "KC_TRNS"]], [["KC_VOLD", "KC_VOLU"], ["KC_TRNS", "KC_TRNS"]], [["KC_VOLD", "KC_VOLU"], ["KC_TRNS", "KC_TRNS"]], [["KC_VOLD", "KC_VOLU"], ["KC_WH_U", "KC_WH_D"]], [["KC_VOLD", "KC_VOLU"], ["KC_WH_U", "KC_WH_D"]], [["KC_VOLD", "KC_VOLU"], ["KC_WH_U", "KC_WH_D"]], [["KC_VOLD", "KC_VOLU"], ["KC_WH_U", "KC_WH_D"]], [["KC_VOLD", "KC_VOLU"], ["KC_WH_U", "KC_WH_D"]]], "layout_options": 0, "macro": [[["down", "KC_LALT"], ["tap", "KC_U"], ["up", "KC_LALT"], ["tap", "KC_A"]], [["down", "KC_LALT"], ["tap", "KC_U"], ["up", "KC_LALT"], ["tap", "KC_O"]], [["down", "KC_LALT"], ["tap", "KC_U"], ["up", "KC_LALT"], ["tap", "KC_U"]], [["down", "KC_LALT"], ["tap", "KC_U"], ["up", "KC_LALT"], ["down", "KC_LSHIFT"], ["tap", "KC_A"], ["up", "KC_LSHIFT"]], [["down", "KC_LALT"], ["tap", "KC_U"], ["up", "KC_LALT"], ["down", "KC_LSHIFT"], ["tap", "KC_O"], ["up", "KC_LSHIFT"]], [["down", "KC_LALT"], ["tap", "KC_U"], ["up", "KC_LALT"], ["down", "KC_LSHIFT"], ["tap", "KC_U"], ["up", "KC_LSHIFT"]], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []], "vial_protocol": 6, "via_protocol": 9, "tap_dance": [["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", 250]], "combo": [["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"], ["KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO"]], "key_override": [], "alt_repeat_key": [], "settings": {"2": 50, "6": 1000, "7": 250, "18": 20, "19": 20, "22": 1, "23": 0, "26": 1, "27": 120}};
+
+// Order and titles of the panels (filled column by column; notes go top right)
+const PANELS = [
+  { layer: 0, title: '0 · Base', color: '#8e8e93' },
+  { layer: 3, title: '3 · Numpad', color: '#0a84ff' },
+  { layer: 4, title: '4 · Umlauts', color: '#ff9f0a' },
+  { layer: 1, title: '1 · Symbols', color: '#30c759' },
+  { layer: 2, title: '2 · F-keys & navigation', color: '#bf5af2' },
+];
+const LAYER_NAME = { 1: 'SYM', 2: 'NAV', 3: 'NUM', 4: 'UML' };
+const THUMB_NAME = { '3,3': 'left outer', '3,4': 'left middle', '3,5': 'left inner',
+                     '7,3': 'right outer', '7,4': 'right middle', '7,5': 'right inner' };
+
+// Keycode -> label (macOS, U.S. input source). "\n" = line break.
+const LABEL = {
+  KC_TAB: 'Tab', KC_BSPACE: 'Bksp', KC_LSHIFT: 'Shift', KC_RSHIFT: 'Shift', KC_LCTRL: 'Ctrl', KC_LGUI: 'Cmd',
+  KC_LALT: 'Opt', KC_SPACE: 'Space', KC_DELETE: 'Del', KC_ENTER: 'Enter', KC_ESCAPE: 'Esc',
+  KC_QUOTE: "'", KC_SLASH: '/', KC_DOT: '.', KC_COMMA: ',', KC_MINUS: '-', KC_EQUAL: '=', KC_GRAVE: '`',
+  KC_SCOLON: ';', KC_BSLASH: '\\', KC_LBRACKET: '[', KC_RBRACKET: ']',
+  KC_UP: '↑', KC_DOWN: '↓', KC_LEFT: '←', KC_RIGHT: '→', KC_MUTE: 'Mute', 'LGUI(KC_SPACE)': 'Spot-\nlight',
+  KC_VOLD: 'Vol −', KC_VOLU: 'Vol +', 'LGUI(KC_MINUS)': 'Zoom −', 'LGUI(KC_EQUAL)': 'Zoom +',
+  'LSFT(KC_1)': '!', 'LSFT(KC_2)': '@', 'LSFT(KC_3)': '#', 'LSFT(KC_4)': '$', 'LSFT(KC_5)': '%', 'LSFT(KC_6)': '^',
+  'LSFT(KC_7)': '&', 'LSFT(KC_8)': '*', 'LSFT(KC_9)': '(', 'LSFT(KC_0)': ')', 'LSFT(KC_MINUS)': '_',
+  'LSFT(KC_EQUAL)': '+', 'LSFT(KC_GRAVE)': '~', 'LSFT(KC_SLASH)': '?', 'LSFT(KC_BSLASH)': '|',
+  'LSFT(KC_QUOTE)': '"', 'LSFT(KC_SCOLON)': ':', 'LSFT(KC_LBRACKET)': '{', 'LSFT(KC_RBRACKET)': '}',
+  'LSA(KC_2)': '€', 'LGUI(KC_LEFT)': 'Line\nstart', 'LGUI(KC_RIGHT)': 'Line\nend', 'LALT(KC_UP)': 'Para\n↑',
+  'LALT(KC_DOWN)': 'Para\n↓', 'LALT(KC_LEFT)': 'Word\n←', 'LALT(KC_RIGHT)': 'Word\n→',
+  USER00: 'BT 0', USER01: 'BT 1', USER02: 'BT 2', KC_MPRV: 'Prev\ntrack', KC_MPLY: 'Play\nPause',
+  KC_MNXT: 'Next\ntrack', KC_BRID: 'Bright-\nness −', KC_BRIU: 'Bright-\nness +',
+  'LCTL(KC_UP)': 'Ctrl\n↑', 'LCTL(KC_LEFT)': 'Ctrl\n←', 'LCTL(KC_RIGHT)': 'Ctrl\n→', 'LCA(KC_ENTER)': 'Ctrl Opt\n⏎',
+  'LCA(KC_UP)': 'Ctrl Opt\n↑', 'LCA(KC_DOWN)': 'Ctrl Opt\n↓', 'LCA(KC_LEFT)': 'Ctrl Opt\n←', 'LCA(KC_RIGHT)': 'Ctrl Opt\n→',
+  'LSA(KC_W)': '„', 'LALT(KC_LBRACKET)': '“', 'LSA(KC_LBRACKET)': '”', 'LALT(KC_RBRACKET)': '‘',
+  'LSA(KC_RBRACKET)': '’', 'LALT(KC_S)': 'ß', 'LALT(KC_MINUS)': '–', 'LSA(KC_MINUS)': '—', 'LSA(KC_8)': '°',
+  'LALT(KC_6)': '§', 'LALT(KC_SCOLON)': '…', 'SGUI(KC_4)': 'Screen-\nshot\n⇧⌘4',
+  M0: 'ä', M1: 'ö', M2: 'ü', M3: 'Ä', M4: 'Ö', M5: 'Ü',
+  'MO(1)': 'SYM', 'MO(2)': 'NAV', 'MO(3)': 'NUM', 'MO(4)': 'UML',
+};
+// Shift hint shown small on Base only
+const SHIFTED = { KC_QUOTE: '"', KC_SLASH: '?', KC_DOT: '>', KC_COMMA: '<' };
+
+function label(kc) {
+  if (LABEL[kc]) return LABEL[kc];
+  const m = /^KC_([A-Z0-9]|F\d+)$/.exec(kc);
+  return m ? m[1] : null;
+}
+
+// Physical position of matrix (row, col) in key units. Rows 0-3 = left half, 4-7 = right half (mirrored, col 0 = outer).
+const STAGGER = [0.5, 0.5, 0.25, 0, 0.25, 0.5];
+const THUMBS = [[3.4, 3.85, 0], [4.5, 3.85, 0], [5.6, 4.0, 14]]; // cols 3..5 of the bottom row
+const RIGHT0 = 7.8, CENTRE = 6.4;
+function pos(r, c) {
+  const right = r >= 4, row = r % 4;
+  let x, y, rot = 0;
+  if (c === 6) { x = CENTRE; y = right ? 2.2 : 0.6; return { x, y, rot }; }
+  if (row === 3 && c >= 3) [x, y, rot] = THUMBS[c - 3];
+  else { x = c; y = row + STAGGER[c]; }
+  if (right) { x = RIGHT0 + 5 - x; rot = -rot; }
+  return { x, y, rot };
+}
+
+function keyFor(layer, r, c, held) {
+  const kc = VIL.layout[layer][r][c];
+  if (held) return { cls: 'held', text: LAYER_NAME[layer] };
+  if (kc === 'KC_NO') return { cls: 'none', text: '' };
+  if (kc === 'KC_TRNS') {
+    const base = keyFor(0, r, c, false);
+    return { cls: 'trns', text: base.text };
+  }
+  const text = label(kc);
+  if (text === null) return { cls: 'raw', text: kc };
+  return { cls: '', text, top: layer === 0 ? SHIFTED[kc] : undefined };
+}
+
+// Centre keys are rotary encoders: draw them round, press label inside, turn directions underneath
+function knob(el, layer, enc, x, y) {
+  el.classList.add('knob');
+  el.classList.remove('big', 'small');
+  el.innerHTML = '<span class="top">press</span>' + el.innerHTML;
+  let [ccw, cw] = VIL.encoder_layout[layer][enc];
+  const trns = ccw === 'KC_TRNS';
+  if (trns) [ccw, cw] = VIL.encoder_layout[0][enc];
+  const turn = document.createElement('div');
+  turn.className = `turn ${trns ? 'trns' : ''}`;
+  turn.style.left = `calc(var(--u) * ${x} + var(--k) * 0.55 - var(--u) * 0.8)`;
+  turn.style.top = `calc(var(--u) * ${y} + var(--k) * 1.12)`;
+  turn.innerHTML = `↺ ${label(ccw) || ccw}<br>↻ ${label(cw) || cw}`;
+  return turn;
+}
+
+const grid = document.getElementById('grid');
+for (const p of PANELS) {
+  let heldAt = null;
+  VIL.layout[0].forEach((row, r) => row.forEach((kc, c) => { if (kc === `MO(${p.layer})`) heldAt = `${r},${c}`; }));
+  const panel = document.createElement('div');
+  panel.className = 'panel';
+  const hint = heldAt ? ` <small>— hold ${THUMB_NAME[heldAt] || heldAt} thumb</small>` : '';
+  panel.innerHTML = `<h2><span class="dot" style="background:${p.color}"></span>${p.title}${hint}</h2>`;
+  const board = document.createElement('div');
+  board.className = 'board';
+  VIL.layout[p.layer].forEach((row, r) => row.forEach((kc, c) => {
+    if (kc === -1) return;
+    const k = keyFor(p.layer, r, c, `${r},${c}` === heldAt);
+    const { x, y, rot } = pos(r, c);
+    const el = document.createElement('div');
+    const single = k.text && [...k.text].length === 1;
+    el.className = `key ${k.cls} ${single ? 'big' : ''} ${k.text.length > 9 ? 'small' : ''}`;
+    el.style.left = `calc(var(--u) * ${x})`;
+    el.style.top = `calc(var(--u) * ${y})`;
+    if (rot) el.style.transform = `rotate(${rot}deg)`;
+    el.title = kc;
+    el.innerHTML = (k.top ? `<span class="top">${k.top}</span>` : '') +
+      k.text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\n/g, '<br>');
+    board.appendChild(el);
+    if (c === 6) board.appendChild(knob(el, p.layer, r >= 4 ? 1 : 0, x, y));
+  }));
+  panel.appendChild(board);
+  grid.appendChild(panel);
+}
+
+const notes = document.createElement('div');
+notes.className = 'panel notes';
+notes.innerHTML = `<h2>Notes</h2><ul>
+  <li><b>SYM / NUM / UML / NAV</b> – hold the thumb key; release to return to Base. Left thumbs: UML (outer), NUM (middle), Space. Right thumbs: Shift, SYM (middle), NAV (outer).</li>
+  <li><b>Numbers</b> – left hand only (right hand stays on the trackpad); 0 on the pinky, Esc on the Tab key. <b>\` : . , -</b> for times, versions (\`26.0.4\`) and amounts; <b>% € + * / =</b> on the right.</li>
+  <li><b>Shift, Space, Cmd/Opt</b> work on every layer, with three exceptions: on <b>SYM</b> the Space key is Spotlight; on <b>UML</b> the Opt key is Screenshot (⇧⌘4 – then drag on the trackpad); on <b>NAV</b> the left pinky column is BT 0–2 – use the right-thumb Shift there.</li>
+  <li><b>' and "</b> – on Base (right pinky home); Shift gives ". Also " directly on SYM.</li>
+  <li><b>&lt; &gt; ?</b> – Shift + <b>, . /</b> on Base.</li>
+  <li><b>Umlauts</b> – macros: Option+u, then the letter. <b>ß</b> = Option+s, <b>–</b> (en dash) = Option+-, <b>€</b> = Option+Shift+2.</li>
+  <li><b>SYM arrow block</b> – jump by word (Opt+←/→), paragraph (Opt+↑/↓), line start/end (Cmd+←/→). Add Shift to select.</li>
+  <li><b>UML typography</b> – „ “ (German), “ ” ‘ ’ (English), — em dash, … ellipsis, § and °.</li>
+  <li><b>Centre knobs</b> – left: press = Mute, turn = volume −/+ (every layer). Right: press = Spotlight (Cmd+Space), turn = zoom out/in (Cmd − / Cmd +). <b>NAV</b> also has media (A S D) and brightness (X C).</li>
+  <li><b>BT 0–2</b> – Bluetooth profiles (NAV layer only). <b>Ctrl ←/→</b> switches Spaces, <b>Ctrl ↑</b> Mission Control.</li>
+</ul>`;
+grid.insertBefore(notes, grid.children[3]);
+</script>
+</body>
+</html>
